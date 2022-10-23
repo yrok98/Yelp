@@ -3,56 +3,77 @@ import pandas as pd
 import csv
 
 
-#FILE CONSTANTE
+#FILE CONSTANT
 USER_JSON_FILE = open("data/yelp_user.json", 'r')
 REVIEW_JSON_FILE = open("data/yelp_review.json")
 RESTO_JSON_FILE = open("data/yelp_restaurants.json")
 
 #COLNAMES FOR RELATION FILE
 RELATION_COLNAMES = [":START_ID(user)", ":END_ID(user)"]
-RESTO_COLNAMES = ['business_id:ID', 'name', ]
+RESTO_COLNAMES = ['business_id:ID', 'name']
+
 #READ JSON 
 # user_json = pd.read_json(USER_JSON_FILE)
 # friends = user_json['friends']
 # review_json = pd.read_json(REVIEW_JSON_FILE)
 
 #write user node
-with open('data/yelp_user.json', 'r') as f: 
-    with open('neo4j.data/user.csv', 'w', encoding ='UTF-8',newline='') as wf: 
-        col_headers=["user_id:ID(user)","name","review_count","yelping_since","useful", "fans","average_stars"]
-        w = csv.writer(wf)
-        data = json.load(f)
+# with open('data/yelp_user.json', 'r') as f: 
+#     with open('neo4j.data/user.csv', 'w', encoding ='UTF-8',newline='') as wf: 
+#         col_headers=["user_id:ID(user)","name","review_count","yelping_since","useful", "fans","average_stars"]
+#         w = csv.writer(wf)
+#         data = json.load(f)
 
-        w.writerow(col_headers)
-        for i in data:
-            # print(i['user_id'])
-            w.writerow([i['user_id'], 
-                        i['name'], 
-                        i["review_count"], 
-                        i["yelping_since"], 
-                        i["useful"], 
-                        i["fans"], 
-                        i['average_stars']])
-        # df = pd.DataFrame(w)
-        # df.to_csv('data2/test_user.csv', index=False)
-        f.close()
-#write friend relationship file
-        with open("neo4j.data/friend_relationship.csv", 'w', encoding ='UTF-8', newline='') as f:
-            w=csv.writer(f)
-            w.writerow(RELATION_COLNAMES)
-            for i in data:
-                # print(i['friends'])
-                if i['friends']: 
-                    w.writerow([i['user_id'], i['friends']])
-            f.close()
+#         w.writerow(col_headers)
+#         for i in data:
+#             # print(i['user_id'])
+#             w.writerow([i['user_id'], 
+#                         i['name'], 
+#                         i["review_count"], 
+#                         i["yelping_since"], 
+#                         i["useful"], 
+#                         i["fans"], 
+#                         i['average_stars']])
+#         # df = pd.DataFrame(w)
+#         # df.to_csv('data2/test_user.csv', index=False)
+#         f.close()
+
+# #write friend relationship file
+#         with open("neo4j.data/friend_relationship.csv", 'w', encoding ='UTF-8', newline='') as f:
+#             w=csv.writer(f)
+#             w.writerow(RELATION_COLNAMES)
+#             for i in data:
+#                 # print(i['friends'])
+#                 if i['friends']: 
+#                     w.writerow([i['user_id'], i['friends']])
+#             f.close()
 
 #write restaurant nodes
-with open(RESTO_JSON_FILE, 'r') as f: 
-   with open("neo4j.data/resto.csv", 'w', encoding ='UTF-8', newline='') as wf:
+with open('data/yelp_restaurants.json', 'r') as f: 
+    resto_data = json.load(f)
+    with open("neo4j.data/resto.csv", 'w', encoding ='UTF-8', newline='') as wf:
      w=csv.writer(wf)
-     w.writerow()
+     w.writerow(RELATION_COLNAMES)
 
+     for i in resto_data:
+        w.writerow([i['business_id'], i['name']])
+
+#write review relationship (wrotes, reviews)
+with (open('neo4j.data/wrotes.csv', 'w', newline='', encoding='utf-8')) as f_user, open('neo4j.data/reviews.csv', 'w', newline='', encoding='utf-8') as f_bus:
+    rev = json.load(open('data/yelp_review.json'))
+    w_user=csv.writer(f_user)
+    w_bus=csv.writer(f_bus)
+    w_user.writerow(RELATION_COLNAMES)
+    w_bus.writerow(RELATION_COLNAMES)
+
+    for i in rev: 
+        w_user.writerow([i['user_id'], i['review_id']])
+        w_bus.writerow([i['review_id'], i['business_id']])
+    f.close()
+
+#
 exit()
+
 with open('data/yelp_review.json') as f:
     w = csv.writer()
     data = json.load(f)
