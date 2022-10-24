@@ -1,4 +1,5 @@
 import json
+from uuid import RESERVED_FUTURE
 import pandas as pd
 import csv
 
@@ -6,11 +7,12 @@ import csv
 #FILE CONSTANT
 USER_JSON_FILE = open("data/yelp_user.json", 'r')
 REVIEW_JSON_FILE = open("data/yelp_review.json")
-RESTO_JSON_FILE = open("data/yelp_restaurants.json")
+BUSINESS_JSON_FILE = open("data/yelp_restaurants.json")
 
 #COLNAMES FOR RELATION FILE
-RELATION_COLNAMES = [":START_ID(user)", ":END_ID(user)"]
-RESTO_COLNAMES = ['business_id:ID', 'name']
+RELATION_COLNAMES = [":START_ID", ":END_ID", ":TYPE"]
+BUSINESS_COLNAMES = ['business_id:ID', 'name']
+USER_COLNAMES = ["user_id:ID(user)","name","review_count","yelping_since","useful", "fans","average_stars"]
 
 #READ JSON 
 # user_json = pd.read_json(USER_JSON_FILE)
@@ -18,57 +20,81 @@ RESTO_COLNAMES = ['business_id:ID', 'name']
 # review_json = pd.read_json(REVIEW_JSON_FILE)
 
 #write user node
-# with open('data/yelp_user.json', 'r') as f: 
-#     with open('neo4j.data/user.csv', 'w', encoding ='UTF-8',newline='') as wf: 
-#         col_headers=["user_id:ID(user)","name","review_count","yelping_since","useful", "fans","average_stars"]
-#         w = csv.writer(wf)
-#         data = json.load(f)
+with open('data/yelp_user.json', 'r') as f: 
+    with open('neo4j.nodes/user.csv', 'w', encoding ='UTF-8',newline='') as wf: 
+        col_headers=USER_COLNAMES
+        w = csv.writer(wf)
+        data = json.load(f)
 
-#         w.writerow(col_headers)
-#         for i in data:
-#             # print(i['user_id'])
-#             w.writerow([i['user_id'], 
-#                         i['name'], 
-#                         i["review_count"], 
-#                         i["yelping_since"], 
-#                         i["useful"], 
-#                         i["fans"], 
-#                         i['average_stars']])
-#         # df = pd.DataFrame(w)
-#         # df.to_csv('data2/test_user.csv', index=False)
-#         f.close()
+        w.writerow(col_headers)
+        for i in data:
+            # print(i['user_id'])
+            w.writerow([i['user_id'], 
+                        i['name'], 
+                        i["review_count"], 
+                        i["yelping_since"], 
+                        i["useful"], 
+                        i["fans"], 
+                        i['average_stars']])
+        # df = pd.DataFrame(w)
+        # df.to_csv('data2/test_user.csv', index=False)
+        f.close()
 
 # #write friend relationship file
-#         with open("neo4j.data/friend_relationship.csv", 'w', encoding ='UTF-8', newline='') as f:
-#             w=csv.writer(f)
-#             w.writerow(RELATION_COLNAMES)
-#             for i in data:
-#                 # print(i['friends'])
-#                 if i['friends']: 
-#                     w.writerow([i['user_id'], i['friends']])
-#             f.close()
+        with open("neo4j.relationship/friend_relationship.csv", 'w', encoding ='UTF-8', newline='') as f:
+            w=csv.writer(f)
+            w.writerow(RELATION_COLNAMES)
+            for i in data:
+                # print(i['friends'])
+                if i['friends']: 
+                    w.writerow([i['user_id'], i['friends'], 'IS_FRIEND_WITH'] )
+            f.close()
 
-#write restaurant nodes
+# #write business node
 with open('data/yelp_restaurants.json', 'r') as f: 
     resto_data = json.load(f)
-    with open("neo4j.data/resto.csv", 'w', encoding ='UTF-8', newline='') as wf:
+    with open("neo4j.nodes/business.csv", 'w', encoding ='UTF-8', newline='') as wf:
      w=csv.writer(wf)
-     w.writerow(RELATION_COLNAMES)
+     w.writerow(BUSINESS_COLNAMES)
 
      for i in resto_data:
         w.writerow([i['business_id'], i['name']])
 
-#write review relationship (wrotes, reviews)
-with (open('neo4j.data/wrotes.csv', 'w', newline='', encoding='utf-8')) as f_user, open('neo4j.data/reviews.csv', 'w', newline='', encoding='utf-8') as f_bus:
+def get_unique_element(elements):
+    list_of_unique_elmt = []
+    unique_elmt = set(elements)
+
+    for elmt in unique_elmt:
+        list_of_unique_elmt.append(elmt)
+
+        return list_of_unique_elmt
+
+#write category node
+with open('neo4j.nodes/categorie.csv', 'w', newline='', encoding='utf-8') as f: 
+    w=csv.writer(f)
+    data = json.load(BUSINESS_JSON_FILE)
+    
+    for i in data:
+        print(i['categories'])
+    #     categories = get_unique_element(i['categories'])
+    #     # w.writerow(':ID')
+    #     # w.writerow([i['categories']])
+    # print(categories)
+
+#write in_price_range relationship
+
+# #write review relationship (wrotes, reviews)
+with (open('neo4j.relationship/has_wrotes.csv', 'w', newline='', encoding='utf-8')) as f_user, open('neo4j.relationship/reviews.csv', 'w', newline='', encoding='utf-8') as f_bus:
     rev = json.load(open('data/yelp_review.json'))
     w_user=csv.writer(f_user)
     w_bus=csv.writer(f_bus)
+
     w_user.writerow(RELATION_COLNAMES)
     w_bus.writerow(RELATION_COLNAMES)
 
     for i in rev: 
-        w_user.writerow([i['user_id'], i['review_id']])
-        w_bus.writerow([i['review_id'], i['business_id']])
+        w_user.writerow([i['user_id'], i['review_id'], 'HAS_WROTES'])
+        w_bus.writerow([i['review_id'], i['business_id'], 'REVIEWS'])
     f.close()
 
 #
