@@ -1,7 +1,9 @@
 import json
 import csv
+from matplotlib.font_manager import json_load
 import pandas as pd
 import re
+import ast
 
 #FILE CONSTANT
 USER_JSON_FILE = open("data/yelp_user.json")
@@ -46,7 +48,6 @@ def business_node():
 
         wf.close()
     f.close()
-
 
 #write category node
 def categories_nodes():
@@ -93,13 +94,20 @@ def city_node():
     f.close()
 
 # #write friend relationship
-def friend_relationship():
-        with open("neo4j.relationship/friend_relationship.csv", 'w', encoding ='UTF-8', newline='') as f:
+def friends():
+        with open("neo4j.relationship/is_friend_with.csv", 'w', encoding ='UTF-8', newline='') as f:
+            data = json.load(USER_JSON_FILE)
+
             w=csv.writer(f)
-            w.writerow(RELATION_COLNAMES)
+            w.writerow([':START_ID(User)', ':END_ID(User)', ':TYPE'])
+
             for i in data:
-                if i['friends']: 
-                    w.writerow([i['user_id'], i['friends'], 'IS_FRIEND_WITH'])
+                # print(i['friends'])
+                while i['friends']: 
+                    curr_friend = i['friends'].pop()
+                    #(User)-[IS_FRIEND_WITH]->(User)
+                    w.writerow([i['user_id'], curr_friend, 'IS_FRIEND_WITH'])
+
         f.close()
 
 # write in_categories relationship
@@ -107,14 +115,14 @@ def in_category():
     with open('neo4j.relationship/in_category.csv', 'w', newline='', encoding='utf-8') as csvfile:
         with open('data/yelp_restaurants.json', 'r') as jsonfile:
             w = csv.writer(csvfile)
-            w.writerow([':ID(categories)', ':LABEL'])
+            w.writerow([':START_ID(categories)', ':END_ID(Category)', ':TYPE'])
         
             json_resto = json.load(jsonfile)
             
             #print(len(line['categories'].strip())>0)
 
             for line in json_resto:
-                categorie = line['categories'].split(', ')
+                # categories = line['categories'].split(', ')
                 if line['categories'] and len(line['categories'].strip()) > 0:
                     cur_categories = list(map(lambda x: x.strip(), re.split('\s*,\s*', line['categories'].strip())))
 
@@ -124,37 +132,68 @@ def in_category():
                         w.writerow([line['business_id'], category, 'IN_CATEGORY'])
                 
 
-
-#write in_price_range relationship ===========================> TO DO
-
-
 #write in_city relationship ===========================> TO DO
+def in_city():
+    with open('neo4j.relationship/in_city.csv', 'w', newline='', encoding='utf-8') as csvfile:
+        with open('data/yelp_restaurants.json', 'r') as jsonfile:
+            w = csv.writer(csvfile)
+            w.writerow([':START_ID(Business)', ':END_ID(City)', ':TYPE'])
+            
+            json_resto = json.load(open('data/yelp_restaurants.json'))
+            
+            #             print(len(line['categories'].strip())>0)
 
-with open('neo4j.relationship/in_city.csv', 'w', newline='', encoding='utf-8') as csvfile:
-    with open('data/yelp_restaurants.json', 'r') as jsonfile:
-        w = csv.writer(csvfile)
-        w.writerow([':ID(city)', ':LABEL'])
+            for line in json_resto:
+                city = line['city'].split(', ')
+                if line['city'] and len(line['city'].strip()) > 0:
+                    cur_city = list(map(lambda x: x.strip(), re.split('\s*,\s*', line['city'].strip())))
+
+    #                 print(cur_city)
+                    for city in cur_city:
+                        w.writerow([line['business_id'], city, 'IN_CITY'])
+                        # print(city)
+
+
+def ambience():
+    with open('neo4j.nodes/ambience.csv', 'w', newline='', encoding='utf-8') as f, open('relation.csv', 'w', newline='', encoding='utf-8') as r:
+        w = csv.writer(f)
         
-        json_resto = json.load(open('data/yelp_restaurants.json'))
+        json_data = json.load(open('data/yelp_restaurants.json'))
         
-        #             print(len(line['categories'].strip())>0)
+        w.writerow(['Ambience:ID(Ambience)'])
+        amb_list =[]
 
-        for line in json_resto:
-            city = line['city'].split(', ')
-            if line['city'] and len(line['city'].strip()) > 0:
-                cur_city = list(map(lambda x: x.strip(), re.split('\s*,\s*', line['city'].strip())))
+        for item in json_data :
+            attribut = item['attributes']
+            if attribut is not None:
+                if 'Ambience' in attribut :
+                    amb = ast.literal_eval(attribut['Ambience'])
+                    if amb is not None:
+                        for k,v in amb.items():
+                            if v == True : 
+                                if k not in amb_list:
+                                    w.writerow([k])
+                                    amb_list.append(k)
 
-#                 print(cur_city)
-                for city in cur_city:
-                    w.writerow([line['business_id'], city, 'IN_CITY'])
-                    # print(city)
 
+# Relation business_id / Ambience
 
-#write in_ambiance relationship ==========================> TO DO
-
-
-#write ambiance nodes =================================> TO DO
-
+with open('neo4j.relationship/in_ambience.csv', 'w', newline='', encoding='utf-8') as file: 
+    jsondata = json.load(open('data/yelp_restaurants.json'))
+    
+    w = csv.writer(file)
+    w.writerow([':START_ID(business_id)', ':END_ID(Ambience)', ':TYPE'])
+    
+    for i in jsondata: 
+        attribut = i['attributes']
+        if attribut is not None:
+            if 'Ambience' in attribut:
+                amb = ast.literal_eval(attribut['Ambience'])
+                if amb is not None: 
+                    for k,v in amb.items():
+                        if v == True : 
+                            #(Business)-[IN_AMBIENCE]->(Ambience)
+                            w.writerow([i['business_id'], k, 'IN_AMBIENCE'])
 
 #write review relationship (wrotes, reviews)
 with open("data/yelp_review.json", "r") as f:
@@ -186,5 +225,4 @@ def review_relationships():
             w_bus.writerow([i['review_id'], i['business_id'], 'REVIEWS'])
         f_user.close()
         f_bus.close()
-
 
