@@ -37,18 +37,20 @@ categories_nodes = set()
 # #write business node
 def business_node(): 
     with open('data/yelp_restaurants.json', 'r') as f: 
-        business_data = json.load(f)
+            business_data = json.load(f)
 
-        with open("neo4j.nodes/business.csv", 'w', encoding ='UTF-8', newline='') as wf:
-            w=csv.writer(wf)
-            w.writerow(BUSINESS_COLNAMES)
+            with open("neo4j.nodes/business.csv", 'w', encoding ='UTF-8', newline='') as wf:
+                w=csv.writer(wf)
+                w.writerow(['Business:ID(Business)',':LABEL', 'name', 'priceRange'])
 
-            for i in business_data:
-                w.writerow([i['business_id'], 'Business', i['name']])
+                for i in business_data:
+                    attributs = i['attributes']
+                    if attributs is not None :
+                        if 'RestaurantsPriceRange2' in attributs:
+                            price = attributs['RestaurantsPriceRange2'].strip()
+                            w.writerow([i['business_id'], 'Business', i['name'], price])
 
-        wf.close()
-    f.close()
-
+business_node()
 #write category node
 def categories():
     with open('neo4j.nodes/categories.csv', 'w', newline='', encoding='utf-8') as f:
@@ -228,11 +230,10 @@ def review_relationships():
         f_bus.close()
 
 
+
+exit()
 in_ambience()
 review()
-
-review()
-
 user_node()
 business_node()
 categories()
