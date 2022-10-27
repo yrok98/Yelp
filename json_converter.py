@@ -14,7 +14,7 @@ BUSINESS_JSON_FILE = open("data/yelp_restaurants.json")
 RELATION_COLNAMES = [":START_ID", ":END_ID", ":TYPE"]
 BUSINESS_COLNAMES = [":ID(Business)", ":LABEL","name"]
 USER_COLNAMES = ['User:ID(User)',':LABEL','name','review_count','yelping_since','useful', 'fans','average_stars']
-REVIEW_COLNAMES = ['Review:ID(Review)', ':LABEL', 'stars', 'useful','text']
+REVIEW_COLNAMES = ['Review:ID(Review)', ':LABEL', 'stars', 'useful','cool','text']
 CATEGORIES_COLNAMES = ['Categories:ID(Categories)', ":LABEL"]
 CITY_COLNAMES= ['City:ID(City)', ':LABEL']
 
@@ -48,9 +48,11 @@ def business_node():
                     if attributs is not None :
                         if 'RestaurantsPriceRange2' in attributs:
                             price = attributs['RestaurantsPriceRange2'].strip()
-                            w.writerow([i['business_id'], 'Business', i['name'], price])
-
+                        else:
+                            price = None
+                        w.writerow([i['business_id'], 'Business', i['name'], price])
 business_node()
+exit()
 #write category node
 def categories():
     with open('neo4j.nodes/categories.csv', 'w', newline='', encoding='utf-8') as f:
@@ -208,7 +210,7 @@ def review():
 
         
             for line in data:
-                w.writerow([line['review_id'], 'Review', line['stars'], line['useful'], line['text'].replace('\n', ' ').replace('\n', ' ').replace('"', '').replace('\\', '')])
+                w.writerow([line['review_id'], 'Review', line['stars'], line['useful'], line['cool'], line['text'].replace('\n', ' ').replace('\n', ' ').replace('"', '').replace('\\', '')])
             # print(type(line['text']))
 
 def review_relationships(): 
@@ -230,6 +232,7 @@ def review_relationships():
         f_bus.close()
 
 
+review()
 
 exit()
 in_ambience()
