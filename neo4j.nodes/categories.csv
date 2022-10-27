@@ -1,193 +1,193 @@
-categories:ID
-Mexican
-Restaurants
-Arts & Entertainment
-Event Planning & Services
-Italian
-Gluten-Free
-Nightlife
-Lounges
-Vegan
-Bars
-Caterers
-Vegetarian
-Pizza
-Vietnamese
-Asian Fusion
-American (New)
-Breakfast & Brunch
-Thai
-Middle Eastern
-Japanese
-Sushi Bars
-Noodles
-Food
-Bakeries
-Delis
-Sandwiches
-American (Traditional)
-Breweries
-Steakhouses
-Seafood
-Coffee & Tea
-Fast Food
-Burgers
-Diners
-Salad
-Chicken Wings
-Chicken Shop
-Caribbean
-Automotive
-Convenience Stores
-Gas Stations
-Beer Bar
-Cafes
-Pubs
-Brasseries
-Cheesesteaks
-Financial Services
-Banks & Credit Unions
-Indian
-Soul Food
-Southern
-Dive Bars
-Tex-Mex
-Ethnic Food
-Specialty Food
-Fruits & Veggies
-Chinese
-Children's Clothing
-Comfort Food
-Fashion
-Department Stores
-Beauty & Spas
-Women's Clothing
-Men's Clothing
-Cosmetics & Beauty Supply
-Shopping
-Filipino
-Bagels
-Laotian
-Puerto Rican
-Latin American
-Car Dealers
-Ice Cream & Frozen Yogurt
-Meat Shops
-Barbeque
-Local Flavor
-Sports Bars
-Bubble Tea
-New Mexican Cuisine
-African
-Buffets
-Cocktail Bars
-French
-Juice Bars & Smoothies
-Seafood Markets
-Peruvian
-Soup
-Pakistani
-Desserts
-Wine Bars
-Imported Food
-Cuban
-Kosher
-Music Venues
-Hot Dogs
-Tacos
-Venues & Event Spaces
-Cajun/Creole
-Party & Event Planning
-Beer
-Wine & Spirits
-Visitor Centers
-Travel Services
-Hotels & Travel
-Food Stands
-Shopping Centers
-Drugstores
-Grocery
-Donuts
-German
-Arcades
-Active Life
-Bowling
-Bed & Breakfast
-Candy Stores
-Gastropubs
-Tapas/Small Plates
-Jazz & Blues
-Farmers Market
-Smokehouse
-Food Trucks
-Korean
-Pretzels
-Nurseries & Gardening
-Home & Garden
-Dominican
-Pasta Shops
-Malaysian
-Mediterranean
-Butcher
-Greek
-Kebab
-Festivals
-Halal
-Afghan
-Food Delivery Services
-Appliances
-Appliances & Repair
-Local Services
-Street Vendors
-Brewpubs
-Patisserie/Cake Shop
-Beer Gardens
-Szechuan
-Irish
-Live/Raw Food
-Ramen
-Wraps
-Hotels
-Waffles
-Adult Entertainment
-Internet Cafes
-Wholesalers
-Professional Services
-Restaurant Supplies
-Moroccan
-Salvadoran
-Spanish
-Karaoke
-Food Court
-Falafel
-Hookah Bars
-Arts & Crafts
-Irish Pub
-Speakeasies
-Health Markets
-Poke
-Hawaiian
-Public Markets
-Modern European
-Belgian
-Dance Clubs
-Pop-Up Restaurants
-Acai Bowls
-Dim Sum
-Tapas Bars
-Antiques
-Taiwanese
-Whiskey Bars
-Tea Rooms
-Sicilian
-Bistros
-Fondue
-Do-It-Yourself Food
-Custom Cakes
-Cupcakes
-Coffeeshops
-British
-Cantonese
-Kids Activities
-Indoor Playcentre
-Brazilian
+Categories:ID(Categories),:LABEL
+Mexican,Categories
+Restaurants,Categories
+Arts & Entertainment,Categories
+Event Planning & Services,Categories
+Italian,Categories
+Gluten-Free,Categories
+Nightlife,Categories
+Lounges,Categories
+Vegan,Categories
+Bars,Categories
+Caterers,Categories
+Vegetarian,Categories
+Pizza,Categories
+Vietnamese,Categories
+Asian Fusion,Categories
+American (New),Categories
+Breakfast & Brunch,Categories
+Thai,Categories
+Middle Eastern,Categories
+Japanese,Categories
+Sushi Bars,Categories
+Noodles,Categories
+Food,Categories
+Bakeries,Categories
+Delis,Categories
+Sandwiches,Categories
+American (Traditional),Categories
+Breweries,Categories
+Steakhouses,Categories
+Seafood,Categories
+Coffee & Tea,Categories
+Fast Food,Categories
+Burgers,Categories
+Diners,Categories
+Salad,Categories
+Chicken Wings,Categories
+Chicken Shop,Categories
+Caribbean,Categories
+Automotive,Categories
+Convenience Stores,Categories
+Gas Stations,Categories
+Beer Bar,Categories
+Cafes,Categories
+Pubs,Categories
+Brasseries,Categories
+Cheesesteaks,Categories
+Financial Services,Categories
+Banks & Credit Unions,Categories
+Indian,Categories
+Soul Food,Categories
+Southern,Categories
+Dive Bars,Categories
+Tex-Mex,Categories
+Ethnic Food,Categories
+Specialty Food,Categories
+Fruits & Veggies,Categories
+Chinese,Categories
+Children's Clothing,Categories
+Comfort Food,Categories
+Fashion,Categories
+Department Stores,Categories
+Beauty & Spas,Categories
+Women's Clothing,Categories
+Men's Clothing,Categories
+Cosmetics & Beauty Supply,Categories
+Shopping,Categories
+Filipino,Categories
+Bagels,Categories
+Laotian,Categories
+Puerto Rican,Categories
+Latin American,Categories
+Car Dealers,Categories
+Ice Cream & Frozen Yogurt,Categories
+Meat Shops,Categories
+Barbeque,Categories
+Local Flavor,Categories
+Sports Bars,Categories
+Bubble Tea,Categories
+New Mexican Cuisine,Categories
+African,Categories
+Buffets,Categories
+Cocktail Bars,Categories
+French,Categories
+Juice Bars & Smoothies,Categories
+Seafood Markets,Categories
+Peruvian,Categories
+Soup,Categories
+Pakistani,Categories
+Desserts,Categories
+Wine Bars,Categories
+Imported Food,Categories
+Cuban,Categories
+Kosher,Categories
+Music Venues,Categories
+Hot Dogs,Categories
+Tacos,Categories
+Venues & Event Spaces,Categories
+Cajun/Creole,Categories
+Party & Event Planning,Categories
+Beer,Categories
+Wine & Spirits,Categories
+Visitor Centers,Categories
+Travel Services,Categories
+Hotels & Travel,Categories
+Food Stands,Categories
+Shopping Centers,Categories
+Drugstores,Categories
+Grocery,Categories
+Donuts,Categories
+German,Categories
+Arcades,Categories
+Active Life,Categories
+Bowling,Categories
+Bed & Breakfast,Categories
+Candy Stores,Categories
+Gastropubs,Categories
+Tapas/Small Plates,Categories
+Jazz & Blues,Categories
+Farmers Market,Categories
+Smokehouse,Categories
+Food Trucks,Categories
+Korean,Categories
+Pretzels,Categories
+Nurseries & Gardening,Categories
+Home & Garden,Categories
+Dominican,Categories
+Pasta Shops,Categories
+Malaysian,Categories
+Mediterranean,Categories
+Butcher,Categories
+Greek,Categories
+Kebab,Categories
+Festivals,Categories
+Halal,Categories
+Afghan,Categories
+Food Delivery Services,Categories
+Appliances,Categories
+Appliances & Repair,Categories
+Local Services,Categories
+Street Vendors,Categories
+Brewpubs,Categories
+Patisserie/Cake Shop,Categories
+Beer Gardens,Categories
+Szechuan,Categories
+Irish,Categories
+Live/Raw Food,Categories
+Ramen,Categories
+Wraps,Categories
+Hotels,Categories
+Waffles,Categories
+Adult Entertainment,Categories
+Internet Cafes,Categories
+Wholesalers,Categories
+Professional Services,Categories
+Restaurant Supplies,Categories
+Moroccan,Categories
+Salvadoran,Categories
+Spanish,Categories
+Karaoke,Categories
+Food Court,Categories
+Falafel,Categories
+Hookah Bars,Categories
+Arts & Crafts,Categories
+Irish Pub,Categories
+Speakeasies,Categories
+Health Markets,Categories
+Poke,Categories
+Hawaiian,Categories
+Public Markets,Categories
+Modern European,Categories
+Belgian,Categories
+Dance Clubs,Categories
+Pop-Up Restaurants,Categories
+Acai Bowls,Categories
+Dim Sum,Categories
+Tapas Bars,Categories
+Antiques,Categories
+Taiwanese,Categories
+Whiskey Bars,Categories
+Tea Rooms,Categories
+Sicilian,Categories
+Bistros,Categories
+Fondue,Categories
+Do-It-Yourself Food,Categories
+Custom Cakes,Categories
+Cupcakes,Categories
+Coffeeshops,Categories
+British,Categories
+Cantonese,Categories
+Kids Activities,Categories
+Indoor Playcentre,Categories
+Brazilian,Categories
